@@ -1,0 +1,6 @@
+@Document_Classifier_WebApi_HostAddress = http://localhost:5118
+
+GET {{Document_Classifier_WebApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
