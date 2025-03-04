@@ -1,3 +1,8 @@
+using Document_Classifier_WebApi.Manager.Interface;
+using Document_Classifier_WebApi.Manager;
+using Document_Classifier_WebApi.Service.Interface;
+using Document_Classifier_WebApi.Service;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,6 +11,16 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// Register services
+builder.Services.AddScoped<IOcrService, OcrService>();
+builder.Services.AddScoped<IPredictionService, PredictionService>();
+builder.Services.AddScoped<ITrainingService, TrainingService>();
+
+// Register managers
+builder.Services.AddScoped<IOcrManager, OcrManager>();
+builder.Services.AddScoped<IPredictManager, PredictManager>();
+builder.Services.AddScoped<ITrainManager, TrainManager>();
 
 var app = builder.Build();
 
