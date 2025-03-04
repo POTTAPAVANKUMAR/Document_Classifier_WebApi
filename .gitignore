@@ -1,0 +1,49 @@
+# .NET Core
+bin/
+obj/
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# Visual Studio
+.vscode/
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Rider
+.idea/
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Auto-generated files
+Generated\
+
+# Logs
+*.log
+
+# NPM Packages
+node_modules/
+
+# Environment variables
+.env
+
+# Local History
+.localhistory/
+
+# Backup files
+*.bak
+*.swp
+*.orig
+*.rej
+*.tmp
