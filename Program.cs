@@ -15,12 +15,10 @@ builder.Services.AddSwaggerGen();
 // Register services
 builder.Services.AddScoped<IOcrService, OcrService>();
 builder.Services.AddScoped<IPredictionService, PredictionService>();
-builder.Services.AddScoped<ITrainingService, TrainingService>();
 
 // Register managers
 builder.Services.AddScoped<IOcrManager, OcrManager>();
 builder.Services.AddScoped<IPredictManager, PredictManager>();
-builder.Services.AddScoped<ITrainManager, TrainManager>();
 
 var app = builder.Build();
 
