@@ -5,6 +5,8 @@ using Document_Classifier_WebApi.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddHttpClient();
+
 // Add services to the container.
 
 builder.Services.AddControllers();
