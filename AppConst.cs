@@ -4,8 +4,8 @@
     {
         public const string DocumentClassifierServiceUrl = "http://127.0.0.1:5001";
 
-        public const string NewDocsPath = "C:\\temp\\new";
+        public const string NewDocsPath = "/Users/pavankumarpotta/Workspace/varunproj/Document_Classifier_WebApi/New";
 
-        public const string CompletedDocsPath = "C:\\temp\\complete";
+        public const string CompletedDocsPath = "/Users/pavankumarpotta/Workspace/varunproj/Document_Classifier_WebApi/Complete";
     }
 }

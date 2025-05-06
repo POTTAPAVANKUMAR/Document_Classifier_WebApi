@@ -4,6 +4,7 @@ using Document_Classifier_WebApi.Service.Interface;
 using Document_Classifier_WebApi.Service;
 using Hangfire;
 using Hangfire.InMemory;
+using Document_Classifier_WebApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,9 +18,11 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // Register services
+builder.Services.AddScoped<IOpenAiService, OpenAiService>();
 builder.Services.AddScoped<IOcrService, OcrService>();
 builder.Services.AddScoped<IPredictionService, PredictionService>();
 builder.Services.AddScoped<IBackgroundProcessService, BackgroundProcessService>(); // Register BackgroundProcessService
+builder.Services.AddScoped<IProcessedDocRepository, ProcessedDocRepository>();
 
 // Register managers
 builder.Services.AddScoped<IOcrManager, OcrManager>();
@@ -32,6 +35,15 @@ builder.Services.AddHangfire(config =>
           .UseDefaultTypeSerializer()
           .UseInMemoryStorage()); // Updated to use InMemoryStorage
 builder.Services.AddHangfireServer();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("DevelopmentPolicy", policy =>
+    {
+        policy.AllowAnyOrigin()
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
 
 var app = builder.Build();
 
@@ -48,11 +60,13 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+app.UseCors("DevelopmentPolicy");
+
 // Configure Hangfire dashboard.
 app.UseHangfireDashboard();
 
 // Schedule the background process to run every 3 minutes.
-RecurringJob.AddOrUpdate<IBackgroundProcessService>("ExecuteBackgroundProcess", service => service.ExecuteAsync(), "*/1 * * * *"); // Runs every 3 minutes
+RecurringJob.AddOrUpdate<IBackgroundProcessService>("ExecuteBackgroundProcess", service => service.ExecuteAsync(), "*/10 * * * *"); // Runs every 3 minutes
 
 app.Run();
 
